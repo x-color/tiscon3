@@ -18,7 +18,6 @@
                         <h1 class="ui aligned header teal">お申込み情報</h1>
 
                         <form class="ui form" method="post" action="/cardOrder/user">
-
                             <!-- /*エラーがあれば表示する*/ -->
                             <ul class="ui red basic label" th:if="${form.hasErrors()}">
                                 <li th:each="error : ${form.getErrors().entrySet()}" th:text="${error.value}"></li>
