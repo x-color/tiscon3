@@ -81,6 +81,10 @@ public class CardOrderController {
         if (form.hasErrors()) {
             return templateEngine.render("cardOrder/user", "form", form);
         }
+
+        String dateOfBirth=form.getYearOfBirth()+"/"+form.getMonthOfBirth()+"/"+form.getDayOfBirth();
+
+
         CardOrder cardOrder = beans.createFrom(form, CardOrder.class);
 
         cardOrderDao.insert(cardOrder);

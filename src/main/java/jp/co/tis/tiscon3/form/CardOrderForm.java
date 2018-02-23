@@ -39,7 +39,7 @@ public class CardOrderForm extends FormBase {
 
     @NotBlank
     @Size(max = 20)
-    private String dateOfBirth;
+    private String dayOfBirth;
 
     @NotBlank
     @Size(max = 6)
