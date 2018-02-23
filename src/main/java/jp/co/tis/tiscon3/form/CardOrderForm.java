@@ -23,9 +23,22 @@ public class CardOrderForm extends FormBase {
     @Pattern(regexp = "^[a-zA-Z 　]*$")
     private String alphabetName;
 
+    /*
     @NotBlank
     @Size(max = 10)
     @Pattern(regexp = "\\d{4}/\\d{1,2}/\\d{1,2}$")
+    private String dateOfBirth;
+    */
+    @NotBlank
+    @Size(max = 20)
+    private String yearOfBirth;
+
+    @NotBlank
+    @Size(max = 20)
+    private String monthOfBirth;
+
+    @NotBlank
+    @Size(max = 20)
     private String dateOfBirth;
 
     @NotBlank
@@ -36,6 +49,7 @@ public class CardOrderForm extends FormBase {
     @Size(max = 8)
     @Pattern(regexp = "^[0-9]{3}-[0-9]{4}$")
     private String zipCode;
+
 
     @NotBlank
     @Size(max = 255)
