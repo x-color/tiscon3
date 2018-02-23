@@ -41,7 +41,7 @@ public class CardOrderForm extends FormBase {
     @Size(max = 20)
     private String dayOfBirth;
 
-    @NotBlank
+    @NotBlank(message="必ず選択してください")
     @Size(max = 6)
     private String gender;
 
@@ -69,7 +69,7 @@ public class CardOrderForm extends FormBase {
     @Email
     private String emailAddress;
 
-    @NotBlank
+    @NotBlank(message="必ず選択してください")
     @Size(max = 20)
     private String spouse;
 

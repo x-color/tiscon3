@@ -116,7 +116,7 @@
                                 <label>勤続年数</label>
                                 <input type="text" class="number" name="employeeLength"placeholder="7" th:value="${form.employeeLength}"/><span class="unit">年</span >
                                 <!-- Display Error -->
-                                <div class="ui pointing red basic label" th:if="${form.hasErrors('employeeLength')}">
+                                <div class="ui left pointing red basic label" th:if="${form.hasErrors('employeeLength')}">
                                     <!-- Error Message : form.getErrors("")[0] + "message" -->
                                     <p th:text="${form.getErrors('employeeLength')[0]} + ''"></p>
                                 </div>
