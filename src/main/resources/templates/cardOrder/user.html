@@ -60,7 +60,7 @@
                                     <p th:text="${form.getErrors('gender')[0]} + '。'"></p>
                                 </div>
                             </div>
-                            <div class="field" th:classappend="${form.hasErrors('dateOfBirth')} ? 'error'">
+                            <div class="field" th:classappend="${form.hasErrors('dayOfBirth')} ? 'error'">
                                 <label>生年月日</label>
                                 <div class="three fields">
                                     <select name="yearOfBirth" size="1" style="width:100px">
@@ -173,6 +173,7 @@
                             <div class="field" th:classappend="${form.hasErrors('job')} ? 'error'">
                                 <label>ご職業</label>
                             <select name="job" size="1" style="width:300px" onclick="entryChange()">
+                                <option disabled selected value>ご職業を選択してください</option>
                                 <option value="経営自営" th:selected="${form.job}=='経営自営'" >経営自営</option>
                                 <option value="会社員" th:selected="${form.job}=='会社員'">会社員</option>
                                 <option value="契約派遣" th:selected="${form.job}=='契約派遣'">契約派遣</option>
