@@ -46,22 +46,23 @@
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('dateOfBirth')} ? 'error'">
                                 <label>生年月日</label>
-                                <select name="yearOfBirth" size="1" style="width:100px">
-                                    <option th:each="i : ${#numbers.sequence(1900, 2000)}" th:value="${i}" th:selected="${form.yearOfBirth}==${i}">
-                                        <p th:text="${i}">
-                                    </option>
-                                </select>年
-                                <select name="monthOfBirth" size="1" style="width:100px">
-                                    <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:selected="${form.monthOfBirth}==${i}">
-                                        <p th:text="${i}">
-                                    </option>
-                                </select>月
-                                <select name="dateOfBirth" size="1" style="width:100px">
-                                    <option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}" th:selected="${form.dateOfBirth}==${i}">
-                                        <p th:text="${i}">
-                                    </option>
-                                </select>日
-                            </div>
+                                <div class="three fields">
+                                    <select id="birth" name="yearOfBirth" size="1" style="width:100px">
+                                        <option th:each="i : ${#numbers.sequence(1900, 2000)}" th:value="${i}" th:selected="${form.yearOfBirth}==${i}">
+                                            <p th:text="${i}">
+                                        </option>
+                                    </select>年
+                                    <select id="birth" name="monthOfBirth" size="1" style="width:100px">
+                                        <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:selected="${form.monthOfBirth}==${i}">
+                                            <p th:text="${i}">
+                                        </option>
+                                    </select>月
+                                    <select id="birth" name="dateOfBirth" size="1" style="width:100px">
+                                        <option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}" th:selected="${form.dateOfBirth}==${i}">
+                                            <p th:text="${i}">
+                                        </option>
+                                    </select>日
+                                </div>
                             <div class="field" th:classappend="${form.hasErrors('zipCode')} ? 'error'">
                                 <label>郵便番号</label>
                                 <input type="text" class="zipcode" name="zipCode" placeholder="123-4567" th:value="${form.zipCode}"/>
@@ -136,7 +137,9 @@
                             <input type="hidden" name="position" th:value="${form.position}"/>
                             <input type="hidden" name="employeeLength" th:value="${form.employeeLength}"/>
 
-                            <!--Invalidate Enter Key -->
+                            <!-- Job Infomation (Job.html) -->
+
+                            <!-- Invalidate Enter Key -->
                             <button class="ui fluid teal button" type="button" onclick="submit();">次へ（お勤め先情報の入力）</button>
                         </form>
                     </div>
