@@ -8,7 +8,7 @@
 function entryChange() {
   var num = document.userForm.job.selectedIndex;
 
-  if (num <= 4 || num == 9) {
+  if ( (1 <= num && num <= 5) || num == 10) {
     // have a job
     document.getElementById('jobInfo').style.display = "";
   } else {
