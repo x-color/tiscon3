@@ -6,7 +6,7 @@
  */
 
 function entryChange() {
-  var num = document.userForm.jobOfUser.selectedIndex;
+  var num = document.userForm.job.selectedIndex;
 
   if (num <= 4 || num == 9) {
     // have a job
