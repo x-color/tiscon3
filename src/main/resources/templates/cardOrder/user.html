@@ -116,7 +116,7 @@
                                 <!-- Display Error -->
                                 <div class="ui pointing red basic label" th:if="${form.hasErrors('mobilePhoneNumber')}">
                                     <!-- Error Message : form.getErrors("")[0] + "message" -->
-                                    <p th:text="${form.getErrors('mobilePhoneNumber')[0]} + '。'"></p>
+                                    <p th:text="${form.getErrors('mobilePhoneNumber')[0]} + '。−(ハイフン)も入力してください。'"></p>
                                 </div>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('emailAddress')} ? 'error'">
