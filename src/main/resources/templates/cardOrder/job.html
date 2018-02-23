@@ -31,18 +31,38 @@
                             <div class="field" th:classappend="${form.hasErrors('employerName')} ? 'error'">
                                 <label>お勤め先名</label>
                                 <input type="text" name="employerName"placeholder="tiscon株式会社" th:value="${form.employerName}"/>
+                                <!-- Display Error -->
+                                <div class="ui pointing red basic label" th:if="${form.hasErrors('employerName')}">
+                                    <!-- Error Message : form.getErrors("")[0] + "message" -->
+                                    <p th:text="${form.getErrors('employerName')[0]} + ''"></p>
+                                </div>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('employerZipCode')} ? 'error'">
                                 <label>お勤め先郵便番号</label>
                                 <input type="text" name="employerZipCode"placeholder="160-0023" th:value="${form.employerZipCode}"/>
+                                <!-- Display Error -->
+                                <div class="ui pointing red basic label" th:if="${form.hasErrors('employerZipCode')}">
+                                    <!-- Error Message : form.getErrors("")[0] + "message" -->
+                                    <p th:text="${form.getErrors('employerZipCode')[0]} + ''"></p>
+                                </div>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('employerAddress')} ? 'error'">
                                 <label>お勤め先住所</label>
                                 <input type="text" name="employerAddress"placeholder="東京都新宿区西新宿8-17-1" th:value="${form.employerAddress}"/>
+                                <!-- Display Error -->
+                                <div class="ui pointing red basic label" th:if="${form.hasErrors('employerAddress')}">
+                                    <!-- Error Message : form.getErrors("")[0] + "message" -->
+                                    <p th:text="${form.getErrors('employerAddress')[0]} + ''"></p>
+                                </div>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('employerPhoneNumber')} ? 'error'">
                                 <label>お勤め先電話番号</label>
                                 <input type="text" name="employerPhoneNumber"placeholder="03-1234-5678" th:value="${form.employerPhoneNumber}"/>
+                                <!-- Display Error -->
+                                <div class="ui pointing red basic label" th:if="${form.hasErrors('employerPhoneNumber')}">
+                                    <!-- Error Message : form.getErrors("")[0] + "message" -->
+                                    <p th:text="${form.getErrors('employerPhoneNumber')[0]} + ''"></p>
+                                </div>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('industryType')} ? 'error'">
                                 <label>業種</label>
@@ -78,14 +98,29 @@
                             <div class="field" th:classappend="${form.hasErrors('department')} ? 'error'">
                                 <label>所属部署</label>
                                 <input type="text" name="department"placeholder="人事部" th:value="${form.department}"/>
+                                <!-- Display Error -->
+                                <div class="ui pointing red basic label" th:if="${form.hasErrors('department')}">
+                                    <!-- Error Message : form.getErrors("")[0] + "message" -->
+                                    <p th:text="${form.getErrors('department')[0]} + ''"></p>
+                                </div>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('position')} ? 'error'">
                                 <label>役職</label>
                                 <input type="text" name="position"placeholder="部長" th:value="${form.position}"/>
+                                <!-- Display Error -->
+                                <div class="ui pointing red basic label" th:if="${form.hasErrors('position')}">
+                                    <!-- Error Message : form.getErrors("")[0] + "message" -->
+                                    <p th:text="${form.getErrors('position')[0]} + ''"></p>
+                                </div>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('employeeLength')} ? 'error'">
                                 <label>勤続年数</label>
                                 <input type="text" class="number" name="employeeLength"placeholder="7" th:value="${form.employeeLength}"/><span class="unit">年</span >
+                                <!-- Display Error -->
+                                <div class="ui pointing red basic label" th:if="${form.hasErrors('employeeLength')}">
+                                    <!-- Error Message : form.getErrors("")[0] + "message" -->
+                                    <p th:text="${form.getErrors('employeeLength')[0]} + ''"></p>
+                                </div>
                             </div>
 
                             <!--/*"ご本人"の入力値を引き回すための隠し項目*/-->
@@ -95,7 +130,7 @@
                             <input type="hidden" name="gender" th:value="${form.gender}"/>
                             <input type="hidden" name="yearOfBirth" th:value="${form.yearOfBirth}"/>
                             <input type="hidden" name="monthOfBirth" th:value="${form.monthOfBirth}"/>
-                            <input type="hidden" name="dateOfBirth" th:value="${form.dateOfBirth}"/>
+                            <input type="hidden" name="dayOfBirth" th:value="${form.dayOfBirth}"/>
                             <input type="hidden" name="zipCode" th:value="${form.zipCode}"/>
                             <input type="hidden" name="address" th:value="${form.address}"/>
                             <input type="hidden" name="homePhoneNumber" th:value="${form.homePhoneNumber}"/>
