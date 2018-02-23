@@ -19,16 +19,17 @@
                         <h1 class="ui aligned header teal">お申込み情報</h1>
 
                         <form class="ui form" method="post" action="/cardOrder/user">
-                            <!-- /*エラーがあれば表示する*/ -->
-                            <ul class="ui red basic label" th:if="${form.hasErrors()}">
-                                <li th:each="error : ${form.getErrors().entrySet()}" th:text="${error.value}"></li>
-                            </ul>
 
                             <div class="ui horizontal divider">ご本人について</div>
 
                             <div class="field" th:classappend="${form.hasErrors('kanjiName')} ? 'error'">
                                 <label>お名前（漢字）</label>
                                 <input type="text" name="kanjiName"placeholder="鈴木太郎" th:value="${form.kanjiName}"/>
+                                <!-- Display Error -->
+                                <div class="ui pointing red basic label" th:if="${form.hasErrors('kanjiName')}">
+                                    <!-- Error Message : form.getErrors("")[0] + "message" -->
+                                    <p th:text="${form.getErrors('kanjiName')[0]} + ''"></p>
+                                </div>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('kanaName')} ? 'error'">
                                 <label>お名前（カナ）</label>
@@ -107,6 +108,7 @@
                                 <input type="radio" name="job" value="他無職" th:checked="${form.job}=='他無職'"/>その他（無職）
                             </div>
 
+
                             <!--/*"お勤め先"の入力値を引き回すための隠し項目*/-->
                             <input type="hidden" name="employerName" th:value="${form.employerName}"/>
                             <input type="hidden" name="employerZipCode" th:value="${form.employerZipCode}"/>
@@ -119,7 +121,8 @@
                             <input type="hidden" name="position" th:value="${form.position}"/>
                             <input type="hidden" name="employeeLength" th:value="${form.employeeLength}"/>
 
-                            <button class="ui fluid teal button">次へ（お勤め先情報の入力）</button>
+                            <!--Invalidate Enter Key -->
+                            <button class="ui fluid teal button" type="button" onclick="submit();">次へ（お勤め先情報の入力）</button>
                         </form>
                     </div>
                 </div>
