@@ -7,6 +7,7 @@
     <title>新規作成</title>
 
     <script src="/assets/js/metrixir.client.js"></script>
+    <script src="/assets/js/auto_address.js"></script>
 </head>
 <body>
 <div class="full height image" layout:fragment="content">
@@ -19,24 +20,24 @@
 
                         <form class="ui form" method="post" action="/cardOrder/user">
 
-                            <!-- /*エラーがあれば表示する*/ -->
-                            <ul class="ui red basic label" th:if="${form.hasErrors()}">
-                                <li th:each="error : ${form.getErrors().entrySet()}" th:text="${error.value}"></li>
-                            </ul>
-
                             <div class="ui horizontal divider">ご本人について</div>
 
                             <div class="field" th:classappend="${form.hasErrors('kanjiName')} ? 'error'">
                                 <label>お名前（漢字）</label>
                                 <input type="text" name="kanjiName"placeholder="鈴木太郎" th:value="${form.kanjiName}"/>
+                                <!-- Display Error -->
+                                <div class="ui pointing red basic label" th:if="${form.hasErrors('kanjiName')}">
+                                    <!-- Error Message : form.getErrors("")[0] + "message" -->
+                                    <p th:text="${form.getErrors('kanjiName')[0]} + ''"></p>
+                                </div>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('kanaName')} ? 'error'">
                                 <label>お名前（カナ）</label>
-                                <input type="text" name="kanaName"placeholder="スズキタロウ" th:value="${form.kanaName}"/>
+                                <input type="text" name="kanaName" placeholder="スズキタロウ" th:value="${form.kanaName}"/>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('alphabetName')} ? 'error'">
                                 <label>お名前（ローマ字）</label>
-                                <input type="text" name="alphabetName"placeholder="Suzuki Taro" th:value="${form.alphabetName}"/>
+                                <input type="text" name="alphabetName" placeholder="Suzuki Taro" th:value="${form.alphabetName}"/>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('gender')} ? 'error'">
                                 <label>性別</label>
@@ -45,27 +46,41 @@
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('dateOfBirth')} ? 'error'">
                                 <label>生年月日</label>
-                                <input type="text" name="dateOfBirth"placeholder="1997/1/1" th:value="${form.dateOfBirth}"/>
+                                <select name="yearOfBirth" size="1" style="width:100px">
+                                    <option th:each="i : ${#numbers.sequence(1900, 2000)}" th:value="${i}" th:selected="${form.yearOfBirth}==${i}">
+                                        <p th:text="${i}">
+                                    </option>
+                                </select>年
+                                <select name="monthOfBirth" size="1" style="width:100px">
+                                    <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:selected="${form.monthOfBirth}==${i}">
+                                        <p th:text="${i}">
+                                    </option>
+                                </select>月
+                                <select name="dateOfBirth" size="1" style="width:100px">
+                                    <option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}" th:selected="${form.dateOfBirth}==${i}">
+                                        <p th:text="${i}">
+                                    </option>
+                                </select>日
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('zipCode')} ? 'error'">
                                 <label>郵便番号</label>
-                                <input type="text" class="zipcode" name="zipCode"placeholder="123-4567" th:value="${form.zipCode}"/>
+                                <input type="text" class="zipcode" name="zipCode" placeholder="123-4567" th:value="${form.zipCode}"/>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('address')} ? 'error'">
                                 <label>ご住所</label>
-                                <input type="text" name="address"placeholder="東京都新宿区西新宿8-17-1" th:value="${form.address}"/>
+                                <input type="text" name="address" placeholder="東京都新宿区西新宿8-17-1" th:value="${form.address}"/>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('homePhoneNumber')} ? 'error'">
                                 <label>自宅電話番号</label>
-                                <input type="text" name="homePhoneNumber"placeholder="03-1234-5678" th:value="${form.homePhoneNumber}"/>
+                                <input type="text" name="homePhoneNumber" placeholder="03-1234-5678" th:value="${form.homePhoneNumber}"/>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('mobilePhoneNumber')} ? 'error'">
                                 <label>携帯電話番号</label>
-                                <input type="text" name="mobilePhoneNumber"placeholder="090-1234-5678" th:value="${form.mobilePhoneNumber}"/>
+                                <input type="text" name="mobilePhoneNumber" placeholder="090-1234-5678" th:value="${form.mobilePhoneNumber}"/>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('emailAddress')} ? 'error'">
                                 <label>メールアドレス</label>
-                                <input type="text" name="emailAddress"placeholder="tarosuzuki@tis.com" th:value="${form.emailAddress}"/>
+                                <input type="text" name="emailAddress" placeholder="tarosuzuki@tis.com" th:value="${form.emailAddress}"/>
                             </div>
                             <div class="field" th:classappend="${form.hasErrors('spouse')} ? 'error'">
                                 <label>配偶者有無</label>
@@ -73,7 +88,7 @@
                                 <input type="radio" name="spouse" value="0" th:checked="${form.spouse}=='0'"/>配偶者なし
                             </div>
 
-                            <div class= "field" div th:classappend="${form.hasErrors('houseClassification')} ? 'error'">
+                            <div class="field" th:classappend="${form.hasErrors('houseClassification')} ? 'error'">
                                 <label>お住まい</label>
                                 <input type="radio" name="houseClassification" value="自己所有" th:checked="${form.houseClassification}=='自己所有'"/>本人名義の一戸建・マンション
                                 <input type="radio" name="houseClassification" value="家族所有" th:checked="${form.houseClassification}=='家族所有'"/>家族名義の一戸建・マンション
@@ -113,6 +128,7 @@
                             </select>
                             </div>
 
+
                             <!--/*"お勤め先"の入力値を引き回すための隠し項目*/-->
                             <input type="hidden" name="employerName" th:value="${form.employerName}"/>
                             <input type="hidden" name="employerZipCode" th:value="${form.employerZipCode}"/>
@@ -125,7 +141,8 @@
                             <input type="hidden" name="position" th:value="${form.position}"/>
                             <input type="hidden" name="employeeLength" th:value="${form.employeeLength}"/>
 
-                            <button class="ui fluid teal button">次へ（お勤め先情報の入力）</button>
+                            <!--Invalidate Enter Key -->
+                            <button class="ui fluid teal button" type="button" onclick="submit();">次へ（お勤め先情報の入力）</button>
                         </form>
                     </div>
                 </div>
