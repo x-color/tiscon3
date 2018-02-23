@@ -72,18 +72,21 @@
                                 <input type="radio" name="spouse" value="1" th:checked="${form.spouse}=='1'"/>配偶者あり
                                 <input type="radio" name="spouse" value="0" th:checked="${form.spouse}=='0'"/>配偶者なし
                             </div>
-                            <div class="field" th:classappend="${form.hasErrors('houseClassification')} ? 'error'">
+
+                            <div class= "field" div th:classappend="${form.hasErrors('houseClassification')} ? 'error'">
                                 <label>お住まい</label>
                                 <input type="radio" name="houseClassification" value="自己所有" th:checked="${form.houseClassification}=='自己所有'"/>本人名義の一戸建・マンション
                                 <input type="radio" name="houseClassification" value="家族所有" th:checked="${form.houseClassification}=='家族所有'"/>家族名義の一戸建・マンション
                                 <input type="radio" name="houseClassification" value="社宅" th:checked="${form.houseClassification}=='社宅'"/>社宅
                                 <input type="radio" name="houseClassification" value="公営" th:checked="${form.houseClassification}=='公営'"/>公営住宅
+                                <br>
                                 <input type="radio" name="houseClassification" value="賃貸" th:checked="${form.houseClassification}=='賃貸'"/>賃貸マンション
                                 <input type="radio" name="houseClassification" value="借家" th:checked="${form.houseClassification}=='借家'"/>借家
                                 <input type="radio" name="houseClassification" value="アパート" th:checked="${form.houseClassification}=='アパート'"/>アパート
                                 <input type="radio" name="houseClassification" value="寮下宿" th:checked="${form.houseClassification}=='寮下宿'"/>寮・下宿
                                 <input type="radio" name="houseClassification" value="その他" th:checked="${form.houseClassification}=='その他'"/>その他
-                            </div>
+                                    </div>
+
                             <div class="field" th:classappend="${form.hasErrors('debt')} ? 'error'">
                                 <label>ローン等のお借り入れ金額</label>
                                 <input type="text" class="number" name="debt"placeholder="0" th:value="${form.debt}"/><span class="unit">万円</span>
@@ -92,19 +95,22 @@
                                 <label>昨年の所得</label>
                                 <input type="text" class="number" name="income"placeholder="350" th:value="${form.income}"/><span class="unit">万円</span>
                             </div>
-                            <div class="field" th:classappend="${form.hasErrors('job')} ? 'error'">
+
+                            <div class="field" th:classappend="${form.hasErrors('jobOfUser')} ? 'error'">
                                 <label>ご職業</label>
-                                <input type="radio" name="job" value="経営自営" th:checked="${form.job}=='経営自営'"/>経営・自営業
-                                <input type="radio" name="job" value="会社員" th:checked="${form.job}=='会社員'"/>会社員
-                                <input type="radio" name="job" value="契約派遣" th:checked="${form.job}=='契約派遣'"/>契約・派遣社員
-                                <input type="radio" name="job" value="公務員" th:checked="${form.job}=='公務員'"/>公務員
-                                <input type="radio" name="job" value="民間団体" th:checked="${form.job}=='民間団体'"/>民間団体
-                                <input type="radio" name="job" value="主婦" th:checked="${form.job}=='主婦'"/>主婦
-                                <input type="radio" name="job" value="学生" th:checked="${form.job}=='学生'"/>学生
-                                <input type="radio" name="job" value="年金受給" th:checked="${form.job}=='年金受給'"/>年金受給者の方
-                                <input type="radio" name="job" value="パートアルバイト" th:checked="${form.job}=='パートアルバイト'"/>パート・アルバイト
-                                <input type="radio" name="job" value="他有職" th:checked="${form.job}=='他有職'"/>その他 (有職）
-                                <input type="radio" name="job" value="他無職" th:checked="${form.job}=='他無職'"/>その他（無職）
+                            <select name="jobOfUser" size="1" style="width:300px">
+                                <option value="経営自営" th:selected="${form.jobOfUser}=='経営自営'" >経営自営</option>
+                                <option value="会社員" th:selected="${form.jobOfUser}=='会社員'">会社員</option>
+                                <option value="契約派遣" th:selected="${form.jobOfUser}=='契約派遣'">契約派遣</option>
+                                <option value="公務員" th:selected="${form.jobOfUser}=='公務員'">公務員</option>
+                                <option value="民間団体" th:selected="${form.jobOfUser}=='民間団体'">民間団体</option>
+                                <option value="主婦" th:selected="${form.jobOfUser}=='主婦'">主婦</option>
+                                <option value="学生" th:selected="${form.jobOfUser}=='学生'">学生</option>
+                                <option value="年金受給" th:selected="${form.jobOfUser}=='年金受給'">年金受給</option>
+                                <option value="パートアルバイト" th:selected="${form.jobOfUser}=='パートアルバイト'">パートアルバイト</option>
+                                <option value="他有職" th:selected="${form.jobOfUser}=='他有職'">その他 (有職）</option>
+                                <option value="他無職" th:selected="${form.jobOfUser}=='他無職'">その他 (無職）</option>
+                            </select>
                             </div>
 
                             <!--/*"お勤め先"の入力値を引き回すための隠し項目*/-->

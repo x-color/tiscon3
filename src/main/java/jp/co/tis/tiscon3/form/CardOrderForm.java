@@ -70,7 +70,7 @@ public class CardOrderForm extends FormBase {
 
     @NotBlank
     @Size(max = 120)
-    private String job;
+    private String jobOfUser;
 
     @NotBlank
     @Size(max = 6)
