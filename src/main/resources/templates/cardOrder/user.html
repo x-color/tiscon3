@@ -8,6 +8,7 @@
 
     <script src="/assets/js/metrixir.client.js"></script>
     <script src="/assets/js/auto_address.js"></script>
+    <script src="/assets/js/dropdown.js"></script>
 </head>
 <body>
 <div class="full height image" layout:fragment="content">
@@ -18,7 +19,7 @@
                     <div class="ui segment metrixir">
                         <h1 class="ui aligned header teal">お申込み情報</h1>
 
-                        <form class="ui form" method="post" action="/cardOrder/user">
+                        <form name="userForm" class="ui form" method="post" action="/cardOrder/">
 
                             <div class="ui horizontal divider">ご本人について</div>
 
@@ -47,17 +48,17 @@
                             <div class="field" th:classappend="${form.hasErrors('dateOfBirth')} ? 'error'">
                                 <label>生年月日</label>
                                 <div class="three fields">
-                                    <select id="birth" name="yearOfBirth" size="1" style="width:100px">
+                                    <select name="yearOfBirth" size="1" style="width:100px">
                                         <option th:each="i : ${#numbers.sequence(1900, 2000)}" th:value="${i}" th:selected="${form.yearOfBirth}==${i}">
                                             <p th:text="${i}">
                                         </option>
                                     </select>年
-                                    <select id="birth" name="monthOfBirth" size="1" style="width:100px">
+                                    <select name="monthOfBirth" size="1" style="width:100px">
                                         <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:selected="${form.monthOfBirth}==${i}">
                                             <p th:text="${i}">
                                         </option>
                                     </select>月
-                                    <select id="birth" name="dateOfBirth" size="1" style="width:100px">
+                                    <select name="dateOfBirth" size="1" style="width:100px">
                                         <option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}" th:selected="${form.dateOfBirth}==${i}">
                                             <p th:text="${i}">
                                         </option>
@@ -114,7 +115,7 @@
 
                             <div class="field" th:classappend="${form.hasErrors('jobOfUser')} ? 'error'">
                                 <label>ご職業</label>
-                            <select name="jobOfUser" size="1" style="width:300px">
+                            <select name="jobOfUser" size="1" style="width:300px" onclick="entryChange()">
                                 <option value="経営自営" th:selected="${form.jobOfUser}=='経営自営'" >経営自営</option>
                                 <option value="会社員" th:selected="${form.jobOfUser}=='会社員'">会社員</option>
                                 <option value="契約派遣" th:selected="${form.jobOfUser}=='契約派遣'">契約派遣</option>
@@ -128,24 +129,76 @@
                                 <option value="他無職" th:selected="${form.jobOfUser}=='他無職'">その他 (無職）</option>
                             </select>
                             </div>
-
-
-                            <!--/*"お勤め先"の入力値を引き回すための隠し項目*/-->
-                            <input type="hidden" name="employerName" th:value="${form.employerName}"/>
-                            <input type="hidden" name="employerZipCode" th:value="${form.employerZipCode}"/>
-                            <input type="hidden" name="employerAddress" th:value="${form.employerAddress}"/>
-                            <input type="hidden" name="employerPhoneNumber" th:value="${form.employerPhoneNumber}"/>
-                            <input type="hidden" name="industryType" th:value="${form.industryType}"/>
-                            <input type="hidden" name="capital" th:value="${form.capital}"/>
-                            <input type="hidden" name="companySize" th:value="${form.companySize}"/>
-                            <input type="hidden" name="department" th:value="${form.department}"/>
-                            <input type="hidden" name="position" th:value="${form.position}"/>
-                            <input type="hidden" name="employeeLength" th:value="${form.employeeLength}"/>
+                            <!-- Delete hidden here -->
 
                             <!-- Job Infomation (Job.html) -->
+                            <div class="field" id="jobInfo">
+                                <div class="ui horizontal divider">お勤め先について</div>
 
+                                <div class="ui statement">ご職業が「経営・自営業」、「会社員」、「契約・派遣社員」、「公務員」、「民間団体」、「その他（有職）」の方は、以下の項目をご入力ください。</div>
+
+                                <div class="field" th:classappend="${form.hasErrors('employerName')} ? 'error'">
+                                    <label>お勤め先名</label>
+                                    <input type="text" name="employerName"placeholder="tiscon株式会社" th:value="${form.employerName}"/>
+                                </div>
+                                <div class="field" th:classappend="${form.hasErrors('employerZipCode')} ? 'error'">
+                                    <label>お勤め先郵便番号</label>
+                                    <input type="text" name="employerZipCode"placeholder="160-0023" th:value="${form.employerZipCode}"/>
+                                </div>
+                                <div class="field" th:classappend="${form.hasErrors('employerAddress')} ? 'error'">
+                                    <label>お勤め先住所</label>
+                                    <input type="text" name="employerAddress"placeholder="東京都新宿区西新宿8-17-1" th:value="${form.employerAddress}"/>
+                                </div>
+                                <div class="field" th:classappend="${form.hasErrors('employerPhoneNumber')} ? 'error'">
+                                    <label>お勤め先電話番号</label>
+                                    <input type="text" name="employerPhoneNumber"placeholder="03-1234-5678" th:value="${form.employerPhoneNumber}"/>
+                                </div>
+                                <div class="field" th:classappend="${form.hasErrors('industryType')} ? 'error'">
+                                    <label>業種</label>
+                                    <input type="radio" name="industryType" value="農林水鉱" th:checked="${form.industryType}=='農林水鉱'"/>農業・林業・水産業・鉱業
+                                    <input type="radio" name="industryType" value="建築不動産" th:checked="${form.industryType}=='建築不動産'"/>建設・不動産業
+                                    <input type="radio" name="industryType" value="製造" th:checked="${form.industryType}=='製造'"/>製造業
+                                    <input type="radio" name="industryType" value="卸小売流通" th:checked="${form.industryType}=='卸小売流通'"/>卸売業・小売・その他流通業
+                                    <input type="radio" name="industryType" value="金融保険" th:checked="${form.industryType}=='金融保険'"/>金融・保険業
+                                    <input type="radio" name="industryType" value="運輸通信" th:checked="${form.industryType}=='運輸通信'"/>運輸・通信業
+                                    <input type="radio" name="industryType" value="電気ガス" th:checked="${form.industryType}=='電気ガス'"/>電気・ガス業
+                                    <input type="radio" name="industryType" value="官公庁" th:checked="${form.industryType}=='官公庁'"/>官公庁
+                                    <input type="radio" name="industryType" value="サービス" th:checked="${form.industryType}=='サービス'"/>その他サービス業
+                                    <input type="radio" name="industryType" value="その他" th:checked="${form.industryType}=='その他'"/>その他・不明
+                                </div>
+                                <div class="field" th:classappend="${form.hasErrors('capital')} ? 'error'">
+                                    <label>資本金</label>
+                                    <input type="radio" name="capital" th:field="*{form.capital}" value="999" th:checked="${form.capital}=='999'"/>１千万円未満
+                                    <input type="radio" name="capital" th:field="${form.capital}" value="4999" th:checked="${form.capital}=='4999'"/>１千万円以上５千万円未満
+                                    <input type="radio" name="capital" th:field="${form.capital}" value="29999" th:checked="${form.capital}=='29999'"/>５千万円以上３億円未満
+                                    <input type="radio" name="capital" th:field="${form.capital}" value="30000" th:checked="${form.capital}=='30000'"/>３億円以上
+                                    <input type="radio" name="capital" th:field="${form.capital}" value="0" th:checked="${form.capital}=='0'"/>その他
+                                </div>
+                                <div class="field" th:classappend="${form.hasErrors('companySize')} ? 'error'">
+                                    <label>お勤め先の規模（従業員数）</label>
+                                    <input type="radio" name="companySize" th:field="${form.companySize}" value="9" th:checked="${form.companySize}=='9'"/>１０名未満
+                                    <input type="radio" name="companySize" th:field="${form.companySize}" value="29" th:checked="${form.companySize}=='29'"/>１０名以上３０名未満
+                                    <input type="radio" name="companySize" th:field="${form.companySize}" value="49" th:checked="${form.companySize}=='49'"/>３０名以上５０名未満
+                                    <input type="radio" name="companySize" th:field="${form.companySize}" value="99" th:checked="${form.companySize}=='99'"/>５０名以上１００名未満
+                                    <input type="radio" name="companySize" th:field="${form.companySize}" value="499" th:checked="${form.companySize}=='499'"/>１００名以上５００名未満
+                                    <input type="radio" name="companySize" th:field="${form.companySize}" value="500" th:checked="${form.companySize}=='500'"/>５００名以上
+                                </div>
+                                <div class="field" th:classappend="${form.hasErrors('department')} ? 'error'">
+                                    <label>所属部署</label>
+                                    <input type="text" name="department"placeholder="人事部" th:value="${form.department}"/>
+                                </div>
+                                <div class="field" th:classappend="${form.hasErrors('position')} ? 'error'">
+                                    <label>役職</label>
+                                    <input type="text" name="position"placeholder="部長" th:value="${form.position}"/>
+                                </div>
+                                <div class="field" th:classappend="${form.hasErrors('employeeLength')} ? 'error'">
+                                    <label>勤続年数</label>
+                                    <input type="text" class="number" name="employeeLength"placeholder="7" th:value="${form.employeeLength}"/><span class="unit">年</span >
+                                </div>
+
+                            </div>
                             <!-- Invalidate Enter Key -->
-                            <button class="ui fluid teal button" type="button" onclick="submit();">次へ（お勤め先情報の入力）</button>
+                            <button class="ui fluid teal button" type="button" onclick="submit();">カードを申し込む</button>
                         </form>
                     </div>
                 </div>
